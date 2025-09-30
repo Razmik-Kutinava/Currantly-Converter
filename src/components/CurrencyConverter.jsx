@@ -265,21 +265,6 @@ export default function CurrencyConverter() {
               🔄 Обновить курсы
             </button>
           </div>
-
-          {lastUpdate() && (
-            <div class="update-info">
-              <div class="update-status">
-                {updating() ? (
-                  <span class="updating">🔄 Обновление курсов...</span>
-                ) : (
-                  <span>📅 Курсы обновлены: {lastUpdate()}</span>
-                )}
-              </div>
-              <div class="next-update">
-                ⏱️ Следующее обновление через: {nextUpdate()}с
-              </div>
-            </div>
-          )}
         </>
       )}
     </div>

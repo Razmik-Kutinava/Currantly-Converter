@@ -139,16 +139,6 @@ export default function CurrencyBoard() {
     <div class="currency-board">
       <div class="board-header">
         <h2>📊 Курсы валют к рублю</h2>
-        {lastUpdate() && (
-          <div class="board-info">
-            <div class="last-update">
-              📅 Курсы обновлены: {formatLastUpdate(lastUpdate())}
-            </div>
-            <div class="next-update">
-              ⏱️ Следующее обновление через: {formatTime(timeUntilUpdate())}
-            </div>
-          </div>
-        )}
       </div>
 
       {loading() ? (
