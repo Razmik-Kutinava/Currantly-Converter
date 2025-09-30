@@ -27,6 +27,7 @@ export default function CurrencyConverter() {
   const [lastUpdate, setLastUpdate] = createSignal('')
   const [nextUpdate, setNextUpdate] = createSignal(60)
   const [apiStatus, setApiStatus] = createSignal('offline')
+  const [marginPercent, setMarginPercent] = createSignal(2.0)
 
   // Загрузка курсов валют через ExchangeRate API
   const loadExchangeRates = async (isAutoUpdate = false) => {
@@ -245,6 +246,60 @@ export default function CurrencyConverter() {
               )}
             </div>
           </div>
+
+          {result() > 0 && rates()[fromCurrency()] && rates()[toCurrency()] && (
+            <div class="margin-calculator">
+              <div class="section-title">📊 Калькулятор маржи</div>
+              <div class="margin-content">
+                <div class="margin-controls">
+                  <label class="margin-label">
+                    Маржа (%):
+                    <input 
+                      type="range" 
+                      min="0" 
+                      max="10" 
+                      step="0.1" 
+                      value={marginPercent()}
+                      onInput={(e) => setMarginPercent(parseFloat(e.target.value))}
+                      class="margin-slider"
+                    />
+                    <span class="margin-value">{marginPercent().toFixed(1)}%</span>
+                  </label>
+                </div>
+                
+                <div class="rate-comparison">
+                  <div class="rate-item clean">
+                    <div class="rate-label">🏦 Биржевой курс</div>
+                    <div class="rate-number">
+                      {(rates()[toCurrency()] / rates()[fromCurrency()]).toFixed(4)}
+                    </div>
+                  </div>
+                  
+                  <div class="rate-item margin">
+                    <div class="rate-label">💰 С маржой {marginPercent().toFixed(1)}%</div>
+                    <div class="rate-number highlighted">
+                      {((rates()[toCurrency()] / rates()[fromCurrency()]) * (1 + marginPercent() / 100)).toFixed(4)}
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="amount-comparison">
+                  <div class="comparison-row">
+                    <span class="label">По биржевому курсу:</span>
+                    <span class="amount">{result().toFixed(2)} {toCurrency()}</span>
+                  </div>
+                  <div class="comparison-row highlight">
+                    <span class="label">С маржой {marginPercent().toFixed(1)}%:</span>
+                    <span class="amount">{(result() * (1 + marginPercent() / 100)).toFixed(2)} {toCurrency()}</span>
+                  </div>
+                  <div class="comparison-row profit">
+                    <span class="label">Доход с маржи:</span>
+                    <span class="amount">+{(result() * marginPercent() / 100).toFixed(2)} {toCurrency()}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           <div class="quick-amounts">
             <div class="section-title">⚡ Быстрый расчет</div>
