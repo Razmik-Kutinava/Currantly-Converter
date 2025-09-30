@@ -1,0 +1,32 @@
+{
+  "name": "telegram-mini-app-solidjs",
+  "version": "1.0.0",
+  "description": "Telegram Mini App на SolidJS",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node server.js",
+    "dev:full": "npm run build && npm start",
+    "bot": "node bot.js",
+    "serve:prod": "python -m http.server 3000 --directory dist",
+    "serve:express": "npm run build && node express-server.js",
+    "start:dev": "concurrently \"npm run dev\" \"npm run bot\"",
+    "start:prod": "concurrently \"npm run serve:prod\" \"npm run bot\"",
+    "start:express": "concurrently \"npm run serve:express\" \"npm run bot\""
+  },
+  "dependencies": {
+    "@solidjs/router": "^0.10.0",
+    "axios": "^1.12.2",
+    "dotenv": "^17.2.3",
+    "express": "^4.18.0",
+    "node-telegram-bot-api": "^0.66.0",
+    "solid-js": "^1.8.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-basic-ssl": "^1.1.0",
+    "vite": "^5.0.0",
+    "vite-plugin-solid": "^2.8.0"
+  }
+}

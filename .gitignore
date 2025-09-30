@@ -1,0 +1,25 @@
+# Переменные окружения
+.env
+
+# Зависимости
+node_modules/
+
+# Билд файлы
+dist/
+build/
+
+# Логи
+logs/
+*.log
+
+# Временные файлы
+.tmp/
+.cache/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,965 @@
+/* Переменные Telegram Theme с улучшенной палитрой */
+:root {
+  --tg-bg-color: #ffffff;
+  --tg-text-color: #000000;
+  --tg-hint-color: #999999;
+  --tg-link-color: #2481cc;
+  --tg-button-color: #2481cc;
+  --tg-button-text-color: #ffffff;
+  --tg-secondary-bg-color: #f8f9fa;
+  --tg-header-bg-color: #ffffff;
+  --tg-accent-text-color: #2481cc;
+  --tg-section-bg-color: #ffffff;
+  --tg-section-header-text-color: #6d6d71;
+  --tg-subtitle-text-color: #999999;
+  --tg-destructive-text-color: #ff3b30;
+  --tg-success-color: #32d74b;
+  --tg-warning-color: #ff9500;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --border-radius: 12px;
+  --border-radius-small: 8px;
+}
+
+/* Темная тема */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tg-bg-color: #1c1c1e;
+    --tg-text-color: #ffffff;
+    --tg-hint-color: #8e8e93;
+    --tg-secondary-bg-color: #2c2c2e;
+    --tg-section-bg-color: #2c2c2e;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Базовые стили для Telegram Mini App */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--tg-bg-color);
+  color: var(--tg-text-color);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 20px;
+  background: var(--tg-bg-color);
+}
+
+.page {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Заголовки */
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--tg-text-color);
+  text-align: center;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--tg-text-color);
+}
+
+h3 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--tg-text-color);
+}
+
+/* Кнопки в стиле Telegram */
+.btn {
+  background: var(--tg-button-color);
+  color: var(--tg-button-text-color);
+  border: none;
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 8px 0;
+  transition: all 0.2s ease;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+  opacity: 0.6;
+}
+
+.btn-secondary {
+  background: var(--tg-secondary-bg-color);
+  color: var(--tg-text-color);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--tg-button-color);
+  color: var(--tg-button-color);
+}
+
+.btn-small {
+  padding: 8px 16px;
+  font-size: 15px;
+  min-height: 36px;
+}
+
+.btn-large {
+  padding: 16px 24px;
+  font-size: 18px;
+  min-height: 54px;
+}
+
+/* Старые стили кнопок для совместимости */
+button {
+  background: var(--tg-button-color);
+  color: var(--tg-button-text-color);
+  border: none;
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 8px 0;
+  transition: all 0.2s ease;
+  width: 100%;
+  min-height: 48px;
+}
+
+button:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+button:active {
+  opacity: 0.6;
+  transform: translateY(0);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Карточка пользователя */
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--tg-secondary-bg-color);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--tg-button-color);
+  color: var(--tg-button-text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.user-info h3 {
+  margin: 0 0 4px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.user-details {
+  font-size: 14px;
+  color: var(--tg-hint-color);
+  margin: 2px 0;
+}
+
+/* Форма сообщения */
+.message-form {
+  background: var(--tg-section-bg-color);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.message-form h3 {
+  margin-bottom: 16px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.message-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: inherit;
+  background: var(--tg-bg-color);
+  color: var(--tg-text-color);
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.message-input:focus {
+  border-color: var(--tg-button-color);
+}
+
+/* История сообщений */
+.messages-history {
+  background: var(--tg-section-bg-color);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.section-header h3 {
+  margin: 0;
+}
+
+.messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.message-item {
+  background: var(--tg-bg-color);
+  border-radius: 12px;
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+}
+
+.message-text {
+  font-size: 16px;
+  margin-bottom: 4px;
+  word-wrap: break-word;
+}
+
+.message-time {
+  font-size: 12px;
+  color: var(--tg-hint-color);
+}
+
+/* Навигация */
+.navigation {
+  background: var(--tg-section-bg-color);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.navigation h3 {
+  margin-bottom: 16px;
+}
+
+.nav-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Демо секция */
+.demo-section {
+  background: var(--tg-section-bg-color);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.demo-section h3 {
+  margin-bottom: 16px;
+}
+
+.demo-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Информация о состоянии */
+.status-info {
+  background: var(--tg-section-bg-color);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.status-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.status-item:last-child {
+  border-bottom: none;
+}
+
+.status-label {
+  font-size: 15px;
+  color: var(--tg-hint-color);
+}
+
+.status-value {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.status-ready {
+  color: #34c759;
+}
+
+.status-loading {
+  color: var(--tg-hint-color);
+}
+
+/* Конвертер валют - Улучшенный дизайн */
+.currency-converter {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 16px;
+  background: var(--tg-bg-color);
+}
+
+.converter-header {
+  text-align: center;
+  margin-bottom: 24px;
+  padding: 20px 16px;
+  background: linear-gradient(135deg, var(--tg-button-color), #3498db);
+  border-radius: var(--border-radius);
+  color: white;
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.converter-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.welcome-text {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Индикатор статуса API */
+.api-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 6px 12px;
+  border-radius: var(--border-radius-small);
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.api-status-online {
+  background: rgba(50, 215, 75, 0.2);
+}
+
+.api-status-offline {
+  background: rgba(255, 149, 0, 0.2);
+}
+
+.status-icon {
+  font-size: 10px;
+}
+
+.status-text {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Состояние загрузки */
+.loading-state {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--tg-secondary-bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.spinner {
+  font-size: 32px;
+  margin-bottom: 16px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Секции ввода */
+.amount-section,
+.currency-section {
+  margin-bottom: 20px;
+}
+
+.input-label {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--tg-text-color);
+  margin-bottom: 8px;
+}
+
+.amount-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  background: var(--tg-bg-color);
+  color: var(--tg-text-color);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.amount-input:focus {
+  border-color: var(--tg-button-color);
+}
+
+.currency-select {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid #e1e5e9;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  font-weight: 500;
+  background: var(--tg-bg-color);
+  color: var(--tg-text-color);
+  outline: none;
+  transition: all 0.3s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 16px center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  padding-right: 50px;
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.currency-select:focus {
+  border-color: var(--tg-button-color);
+  box-shadow: 0 0 0 3px rgba(36, 129, 204, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Кнопка переключения - улучшенный дизайн */
+.swap-section {
+  text-align: center;
+  margin: 24px 0;
+  position: relative;
+}
+
+.swap-button {
+  background: linear-gradient(135deg, var(--tg-button-color), #3498db);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 12px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(36, 129, 204, 0.3);
+  position: relative;
+  margin: 0 auto;
+}
+
+.swap-button:hover {
+  transform: translateY(-2px) rotate(180deg);
+  box-shadow: 0 6px 20px rgba(36, 129, 204, 0.4);
+}
+
+.swap-button:active {
+  transform: translateY(0) rotate(180deg);
+}
+
+/* Результат конвертации - улучшенный дизайн */
+.result-section {
+  margin: 24px 0;
+}
+
+.result-card {
+  background: linear-gradient(135deg, var(--tg-button-color), #4facfe);
+  color: white;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.result-header {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+.result-calculation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.from-amount,
+.to-amount {
+  font-size: 20px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 8px;
+  min-width: 120px;
+}
+
+.equals {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.exchange-rate {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-top: 8px;
+}
+
+/* Быстрые суммы - улучшенный дизайн */
+.quick-amounts {
+  margin: 24px 0;
+  padding: 20px;
+  background: var(--tg-secondary-bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--tg-text-color);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.quick-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.quick-button {
+  background: var(--tg-bg-color);
+  color: var(--tg-text-color);
+  border: 2px solid #e1e5e9;
+  border-radius: var(--border-radius-small);
+  padding: 14px 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.quick-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  border-color: var(--tg-button-color);
+}
+
+.quick-button.active {
+  background: linear-gradient(135deg, var(--tg-button-color), #3498db);
+  color: white;
+  border-color: var(--tg-button-color);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(36, 129, 204, 0.3);
+}
+
+/* Действия - улучшенный дизайн */
+.actions-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+/* Информация об обновлении */
+.update-info {
+  text-align: center;
+  font-size: 13px;
+  color: var(--tg-hint-color);
+  margin-top: 24px;
+  padding: 16px;
+  background: var(--tg-secondary-bg-color);
+  border-radius: var(--border-radius-small);
+  border-left: 4px solid var(--tg-button-color);
+}
+
+.update-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.updating {
+  color: var(--tg-button-color);
+  font-weight: 600;
+  animation: pulse 2s infinite;
+}
+
+.next-update {
+  font-size: 12px;
+  color: var(--tg-hint-color);
+  font-weight: 500;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.close-btn {
+  background: var(--tg-theme-destructive-text-color, #ff3b30);
+}
+
+/* Формы */
+input, select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--tg-theme-hint-color, #999999);
+  border-radius: 8px;
+  font-size: 16px;
+  background: var(--tg-theme-bg-color, #ffffff);
+  color: var(--tg-theme-text-color, #000000);
+  margin: 5px 0;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--tg-theme-button-color, #2481cc);
+}
+
+/* Информация о пользователе */
+.user-info, .profile-info {
+  background: var(--tg-theme-secondary-bg-color, #f1f1f1);
+  padding: 20px;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.avatar img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.user-details p {
+  margin: 5px 0;
+  color: var(--tg-theme-hint-color, #999999);
+}
+
+/* Настройки */
+.settings-form {
+  margin: 20px 0;
+}
+
+.setting-item {
+  margin: 15px 0;
+}
+
+.setting-item label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.setting-item input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+/* Действия */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.message-form {
+  margin: 20px 0;
+}
+
+.message-form input {
+  margin-bottom: 10px;
+}
+
+/* Стили для CurrencyBoard */
+.currency-board {
+  background: var(--tg-section-bg-color);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.currency-board-section {
+  margin-top: 30px;
+}
+
+.board-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.board-header h2 {
+  color: var(--tg-text-color);
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.board-info {
+  font-size: 12px;
+  color: var(--tg-subtitle-text-color);
+  line-height: 1.4;
+}
+
+.last-update, .next-update {
+  margin: 4px 0;
+}
+
+.board-loading {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--tg-hint-color);
+}
+
+.board-loading .spinner {
+  font-size: 24px;
+  margin-bottom: 10px;
+  animation: spin 1s linear infinite;
+}
+
+.currency-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.currency-card {
+  background: var(--tg-bg-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius-small);
+  padding: 15px;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 4px var(--shadow-color);
+}
+
+.currency-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.currency-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.currency-flag {
+  font-size: 20px;
+}
+
+.currency-code {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--tg-text-color);
+}
+
+.currency-rate {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--tg-accent-text-color);
+  margin-bottom: 8px;
+}
+
+.rate-value {
+  font-size: 20px;
+}
+
+.rate-currency {
+  font-size: 16px;
+  margin-left: 2px;
+}
+
+.rate-loading {
+  color: var(--tg-hint-color);
+  font-size: 16px;
+}
+
+.currency-name {
+  font-size: 11px;
+  color: var(--tg-subtitle-text-color);
+  line-height: 1.2;
+}
+
+.board-footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.update-button {
+  background: var(--tg-secondary-bg-color);
+  color: var(--tg-text-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius-small);
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.update-button:hover:not(:disabled) {
+  background: var(--tg-hint-color);
+  color: var(--tg-bg-color);
+}
+
+.update-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Улучшение кнопки PDF */
+.btn-primary {
+  background: var(--tg-success-color);
+  color: white;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: #28c840;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(50, 215, 75, 0.3);
+}
+
+/* Темная тема для board */
+@media (prefers-color-scheme: dark) {
+  .currency-card {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .update-button {
+    background: var(--tg-secondary-bg-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+  .app {
+    padding: 10px;
+  }
+  
+  button {
+    padding: 15px 20px;
+  }
+  
+  .currency-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .currency-card {
+    padding: 12px;
+  }
+  
+  .currency-rate {
+    font-size: 16px;
+  }
+  
+  .rate-value {
+    font-size: 18px;
+  }
+}
