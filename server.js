@@ -8,6 +8,9 @@ const __dirname = path.dirname(__filename)
 const app = express()
 const PORT = process.env.PORT || 3000
 
+// Middleware для обработки JSON
+app.use(express.json())
+
 // Health check endpoint для Railway и мониторинга
 app.get('/health', (req, res) => {
   res.status(200).json({
@@ -27,6 +30,19 @@ app.get('/api/status', (req, res) => {
     memory: process.memoryUsage(),
     cpu: process.cpuUsage()
   })
+})
+
+// Webhook endpoint для Telegram бота
+app.post('/webhook', (req, res) => {
+  console.log('📨 Webhook received:', JSON.stringify(req.body, null, 2))
+  
+  // Простая обработка команд через webhook
+  const message = req.body.message
+  if (message && message.text === '/start') {
+    console.log(`👤 User ${message.from.first_name} started the bot`)
+  }
+  
+  res.status(200).json({ ok: true })
 })
 
 // Serve static files from the dist directory
