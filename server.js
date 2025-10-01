@@ -11,17 +11,27 @@ console.log('NODE_ENV:', process.env.NODE_ENV)
 
 // Добавляем middleware для логирования всех запросов
 app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`)
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path} from ${req.ip}`)
+  console.log('Headers:', JSON.stringify(req.headers, null, 2))
   next()
 })
 
 app.get('/health', (req, res) => {
-  console.log('Health check requested')
-  res.json({ 
+  console.log('=== HEALTH CHECK START ===')
+  console.log('Health check requested from:', req.ip)
+  console.log('User-Agent:', req.get('User-Agent'))
+  
+  const response = { 
     status: 'OK', 
     port: PORT, 
-    time: new Date().toISOString()
-  })
+    time: new Date().toISOString(),
+    server: 'Railway',
+    headers: req.headers
+  }
+  
+  console.log('Sending response:', JSON.stringify(response, null, 2))
+  res.json(response)
+  console.log('=== HEALTH CHECK END ===')
 })
 
 app.get('/', (req, res) => {
@@ -40,6 +50,31 @@ console.log('About to start server...')
 const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`=== SERVER STARTED ON PORT ${PORT} ===`)
   console.log(`Server listening on 0.0.0.0:${PORT}`)
+  
+  // Самотест - проверяем что сервер отвечает локально
+  setTimeout(() => {
+    import('http').then(http => {
+      const req = http.request({
+        hostname: 'localhost',
+        port: PORT,
+        path: '/health',
+        method: 'GET'
+      }, (res) => {
+        console.log('=== SELF-TEST SUCCESS ===')
+        console.log('Self-test status:', res.statusCode)
+        res.on('data', (chunk) => {
+          console.log('Self-test response:', chunk.toString())
+        })
+      })
+      
+      req.on('error', (err) => {
+        console.error('=== SELF-TEST FAILED ===')
+        console.error('Self-test error:', err)
+      })
+      
+      req.end()
+    })
+  }, 1000)
 })
 
 server.on('error', (err) => {
