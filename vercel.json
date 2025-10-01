@@ -18,5 +18,6 @@
       "dest": "/index.html"
     }
   ],
-  "buildCommand": "npm run build"
+  "buildCommand": "npm run build",
+  "installCommand": "npm install --force"
 }
