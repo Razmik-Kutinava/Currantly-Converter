@@ -6,94 +6,41 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const app = express()
-// Railway автоматически предоставляет PORT, используем его или fallback на 3000
-const PORT = parseInt(process.env.PORT) || 3000
+const PORT = process.env.PORT || 3000
 
-// Middleware для обработки JSON
+console.log(`🚀 Starting server...`)
+console.log(`📍 Port: ${PORT}`)
+console.log(`📁 Directory: ${__dirname}`)
+
+// Middleware
 app.use(express.json())
 
-// Health check endpoint для Railway и мониторинга
+// Health check - простейший
 app.get('/health', (req, res) => {
-  res.status(200).json({
-    status: 'OK',
+  console.log('✅ Health check requested')
+  res.status(200).json({ 
+    status: 'OK', 
     timestamp: new Date().toISOString(),
-    uptime: process.uptime(),
-    service: 'Currency Converter',
-    version: '1.0.0'
+    port: PORT
   })
 })
 
-// API status endpoint
-app.get('/api/status', (req, res) => {
-  res.status(200).json({
-    api: 'running',
-    server: 'healthy',
-    memory: process.memoryUsage(),
-    cpu: process.cpuUsage()
-  })
-})
-
-// Webhook endpoint для Telegram бота
-app.post('/webhook', (req, res) => {
-  console.log('📨 Webhook received:', JSON.stringify(req.body, null, 2))
-  
-  // Простая обработка команд через webhook
-  const message = req.body.message
-  if (message && message.text === '/start') {
-    console.log(`👤 User ${message.from.first_name} started the bot`)
-  }
-  
-  res.status(200).json({ ok: true })
-})
-
-// Serve static files from the dist directory
+// Static files
 app.use(express.static(path.join(__dirname, 'dist')))
 
-// Handle all routes - return the index.html file for SPA
+// SPA routing
 app.get('*', (req, res) => {
+  console.log(`� Serving index.html for: ${req.path}`)
   res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
 
+// Start server
 const server = app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Server running on http://0.0.0.0:${PORT}`)
-  console.log(`📁 Serving static files from: ${path.join(__dirname, 'dist')}`)
-  console.log(`✅ Health check: http://0.0.0.0:${PORT}/health`)
+  console.log(`✅ Server running on http://0.0.0.0:${PORT}`)
+  console.log(`📁 Serving from: ${path.join(__dirname, 'dist')}`)
 })
 
-// Обработка ошибок сервера
+// Error handling
 server.on('error', (err) => {
-  if (err.code === 'EADDRINUSE') {
-    console.error(`❌ Port ${PORT} is already in use. Trying alternative port...`)
-    const alternativePort = PORT + 1
-    server.listen(alternativePort, '0.0.0.0', () => {
-      console.log(`🚀 Server running on alternative port http://0.0.0.0:${alternativePort}`)
-    })
-  } else {
-    console.error('❌ Server error:', err)
-    process.exit(1)
-  }
-})
-
-// Graceful shutdown для Railway
-process.on('SIGTERM', () => {
-  console.log('SIGTERM received, shutting down gracefully')
-  server.close(() => {
-    console.log('Process terminated')
-  })
-})
-
-process.on('SIGINT', () => {
-  console.log('SIGINT received, shutting down gracefully')
-  process.exit(0)
-})
-
-// Обработка неперехваченных ошибок
-process.on('uncaughtException', (err) => {
-  console.error('❌ Uncaught Exception:', err)
-  process.exit(1)
-})
-
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason)
-  process.exit(1)
+  console.error('❌ Server error:', err)
 })
