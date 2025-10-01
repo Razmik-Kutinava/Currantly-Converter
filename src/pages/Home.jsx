@@ -2,6 +2,7 @@ import { createSignal, onMount } from 'solid-js'
 import CurrencyConverter from '../components/CurrencyConverter.jsx'
 import CurrencyBoard from '../components/CurrencyBoard.jsx'
 
+// Force rebuild v2
 export default function Home() {
   return (
     <div class="page">
