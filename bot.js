@@ -36,8 +36,8 @@ bot.setMyCommands([
 bot.setChatMenuButton({
   menu_button: {
     type: 'web_app',
-    text: '💱 Конвертер',
-    web_app: { url: 'https://currantly-converter.vercel.app' }
+    text: '🧪 Тест Mini App',
+    web_app: { url: 'https://currantly-converter.vercel.app/test' }
   }
 });
 
@@ -73,8 +73,8 @@ bot.on('message', async (msg) => {
         reply_markup: {
           inline_keyboard: [[
             {
-              text: '💱 Открыть конвертер',
-              web_app: { url: 'https://currantly-converter.vercel.app' }
+              text: '🧪 Тест Mini App',
+              web_app: { url: 'https://currantly-converter.vercel.app/test' }
             }
           ]]
         }
@@ -95,8 +95,8 @@ bot.onText(/\/converter/, async (msg) => {
       reply_markup: {
         inline_keyboard: [[
           {
-            text: '🚀 Запустить конвертер',
-            web_app: { url: 'https://currantly-converter.vercel.app' }
+            text: '🧪 Тест Mini App',
+            web_app: { url: 'https://currantly-converter.vercel.app/test' }
           }
         ]]
       }
