@@ -57,7 +57,7 @@ bot.on('message', async (msg) => {
           inline_keyboard: [[
             {
               text: '💱 Открыть конвертер',
-              web_app: { url: 'https://currantly-converter-production.up.railway.app' }
+              web_app: { url: 'https://currantly-converter.vercel.app' }
             }
           ]]
         }
