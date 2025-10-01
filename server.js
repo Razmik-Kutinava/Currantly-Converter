@@ -1,5 +1,3 @@
-
-
 import express from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -45,6 +43,20 @@ const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ Health check: http://0.0.0.0:${PORT}/health`)
 })
 
+// Обработка ошибок сервера
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`❌ Port ${PORT} is already in use. Trying alternative port...`)
+    const alternativePort = PORT + 1
+    server.listen(alternativePort, '0.0.0.0', () => {
+      console.log(`🚀 Server running on alternative port http://0.0.0.0:${alternativePort}`)
+    })
+  } else {
+    console.error('❌ Server error:', err)
+    process.exit(1)
+  }
+})
+
 // Graceful shutdown для Railway
 process.on('SIGTERM', () => {
   console.log('SIGTERM received, shutting down gracefully')
@@ -56,4 +68,15 @@ process.on('SIGTERM', () => {
 process.on('SIGINT', () => {
   console.log('SIGINT received, shutting down gracefully')
   process.exit(0)
+})
+
+// Обработка неперехваченных ошибок
+process.on('uncaughtException', (err) => {
+  console.error('❌ Uncaught Exception:', err)
+  process.exit(1)
+})
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason)
+  process.exit(1)
 })
