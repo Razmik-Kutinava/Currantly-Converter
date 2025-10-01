@@ -26,6 +26,23 @@ const bot = new TelegramBot(BOT_TOKEN, {
   }
 });
 
+// Настройка команд бота
+bot.setMyCommands([
+  { command: 'start', description: 'Запустить бота' },
+  { command: 'converter', description: 'Открыть конвертер валют' }
+]);
+
+// Настройка Menu Button для Web App
+bot.setChatMenuButton({
+  menu_button: {
+    type: 'web_app',
+    text: '💱 Конвертер',
+    web_app: { url: 'https://currantly-converter.vercel.app' }
+  }
+});
+
+console.log('🔧 Команды и Menu Button настроены!');
+
 // Обработка ошибок бота
 bot.on('error', (error) => {
   console.error('❌ Ошибка бота:', error);
@@ -65,6 +82,27 @@ bot.on('message', async (msg) => {
     }
   } catch (error) {
     console.error('❌ Ошибка обработки сообщения:', error);
+  }
+});
+
+// Обработчик команды /converter
+bot.onText(/\/converter/, async (msg) => {
+  const chatId = msg.chat.id;
+  console.log(`💱 Команда /converter от ${msg.from.first_name} (${msg.from.id})`);
+  
+  try {
+    await bot.sendMessage(chatId, '💱 Открываю конвертер валют...', {
+      reply_markup: {
+        inline_keyboard: [[
+          {
+            text: '🚀 Запустить конвертер',
+            web_app: { url: 'https://currantly-converter.vercel.app' }
+          }
+        ]]
+      }
+    });
+  } catch (error) {
+    console.error('❌ Ошибка отправки конвертера:', error);
   }
 });
 
