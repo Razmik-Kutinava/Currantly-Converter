@@ -63,6 +63,30 @@ body {
   padding: 0 16px;
 }
 
+/* Описание приложения */
+.app-description {
+  text-align: center;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: var(--tg-secondary-bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.app-description h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--tg-text-color);
+}
+
+.app-description p {
+  font-size: 15px;
+  color: var(--tg-hint-color);
+  line-height: 1.4;
+  margin: 0;
+}
+
 /* Заголовки */
 h1 {
   font-size: 28px;
