@@ -1,7 +1,7 @@
 {
   "name": "telegram-mini-app-solidjs",
-  "version": "1.0.0",
-  "description": "Telegram Mini App на SolidJS",
+  "version": "1.0.1",
+  "description": "Telegram Mini App на SolidJS - Fixed version",
   "type": "module",
   "scripts": {
     "dev": "vite",
