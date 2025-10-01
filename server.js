@@ -16,15 +16,25 @@ console.log('Static dir:', path.join(__dirname, 'dist'))
 // Middleware
 app.use(express.json())
 
+// Логирование всех запросов
+app.use((req, res, next) => {
+  console.log(`📥 ${new Date().toISOString()} - ${req.method} ${req.path}`)
+  console.log(`   From: ${req.ip} | User-Agent: ${req.get('User-Agent') || 'unknown'}`)
+  next()
+})
+
 // Health check - ПЕРВЫМ делом
 app.get('/health', (req, res) => {
-  console.log('Health check from:', req.ip)
-  res.status(200).json({ 
+  console.log('🏥 Health check from:', req.ip)
+  const response = { 
     status: 'OK', 
     port: PORT, 
     time: new Date().toISOString(),
-    static: path.join(__dirname, 'dist')
-  })
+    static: path.join(__dirname, 'dist'),
+    server: 'Railway-Static'
+  }
+  res.status(200).json(response)
+  console.log('✅ Health check response sent')
 })
 
 // Static files
@@ -41,6 +51,39 @@ app.get('*', (req, res) => {
 
 const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ Static server running on port ${PORT}`)
+  console.log(`🌐 Listening on 0.0.0.0:${PORT}`)
+  console.log(`🔗 Public URL: https://currantly-converter-production.up.railway.app`)
+  
+  // Самотест через IPv4
+  setTimeout(() => {
+    import('http').then(http => {
+      const req = http.request({
+        hostname: '127.0.0.1', // IPv4 вместо localhost
+        port: PORT,
+        path: '/health',
+        method: 'GET',
+        family: 4 // Принудительно IPv4
+      }, (res) => {
+        console.log('✅ SELF-TEST SUCCESS - IPv4')
+        console.log('Status:', res.statusCode)
+        res.on('data', (chunk) => {
+          console.log('Response:', chunk.toString())
+        })
+      })
+      
+      req.on('error', (err) => {
+        console.error('❌ SELF-TEST FAILED - IPv4')
+        console.error('Error:', err.message)
+      })
+      
+      req.setTimeout(5000, () => {
+        req.destroy()
+        console.error('❌ SELF-TEST TIMEOUT')
+      })
+      
+      req.end()
+    })
+  }, 2000)
 })
 
 server.on('error', (err) => {
