@@ -152,7 +152,6 @@ export default function CurrencyConverter() {
   return (
     <div class="currency-converter">
       <div class="converter-header">
-        <h1>💱 Конвертер валют</h1>
         <p class="welcome-text">Привет! Конвертируй валюты легко и быстро!</p>
         
         <div class={`api-status api-status-${apiStatus()}`}>
